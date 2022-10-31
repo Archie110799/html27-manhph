@@ -80,8 +80,8 @@ MAC:
 + Config email : git config --global user.email '<email>'
 + Config username : git config --global user.name '<name>'
 + Add toàn bộ file change: git add .
-+ Tạo commit mô tả: git commit -m 'homework1'
-+ git push
++ Tạo commit mô tả: git commit -m 'git init'
++ Push code: git push
 - Những lần sau:
 + Add toàn bộ file change: git add .
 + Tạo commit mô tả: git commit -m 'homework1'
