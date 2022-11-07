@@ -127,3 +127,7 @@ git branch --show-current
 git remote add origin <remote repository URL>
 
 git branch -D …
+
+
+# Meet
+https://meet.google.com/evg-ihkc-hnx
