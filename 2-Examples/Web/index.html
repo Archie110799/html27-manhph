@@ -9,96 +9,114 @@
   </head>
   <body>
     <h1>Hello world</h1>
+    <button onclick="getListUser()">Get List User</button>
+    <button onclick="postUser()">Post User</button>
+    <button onclick="updateUser()">Update User</button>
+    <button onclick="deleteUser()">Delete User</button>
+    <div id="result">
+      <div class="table-responsive"></div>
+    </div>
 
     <script>
-      //String, Number, Boolean, undefined, null.
-      //Object, Array, Func
-      const MAX_NUMBER = 100; // hang so
+      // CRUD - R/C/U/D
+      // button -> click -> log listUser call API
+      function _renderListUser(listUser) {
+        let contentBody = ``;
+        listUser.map((user) => {
+          contentBody += `<tr class="">
+                      <td scope="row">${user.name}</td>
+                      <td>${user.avatar}</td>
+                    </tr>`;
+        });
+        let res = `
+          <table class="table table-primary">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Avatar</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${contentBody}
+            </tbody>
+          </table>
+        `;
 
-      let boo = true; // boolean
-      let un = undefined;
-      let nul = null;
-      let obj = {
-        name: "asdas",
-        age: 30,
-      };
-      // index in array [0 -> arr.length]
-      let arr = [1, 2, 3];
-      function nameFunc(params) {
-        console.log("input function", params);
-      }
-      let num = 11; // number
-      let str = "11"; // string
-      // console.log('number', typeof num);
-      // console.log('string',str);
-      // console.log('boolean',boo);
-      // console.log('undefined',un);
-      // console.log('null',nul);
-      // console.log('object',obj.age);
-      // console.log('array',arr[2]);
-      // nameFunc(12)
-      // console.log(num == str);
-
-      // console.log(num === str); //  > < >= <=  !==
-
-      // OUTPUT = 1
-
-      // console.log(parseInt(num3));
-      // console.log(Math.round(num3));
-
-      // console.log(num1 + num2); //3
-      // console.log(num1 - num2); //-1
-      // console.log(num1 * num2); //2
-      // console.log(num1 / num2); // 0.5
-      // console.log(num1 % num2); // 1
-
-      // Cau dieu kien
-      let num1 = prompt("Nhap diem");
-      let num2 = 2;
-      isRank(num1);
-      // function
-      //   isChan(num1) //-> 1 la so le
-      //   isChan(num2) //-> 2 la so chan
-
-      function isChan(numberInput) {
-        if (numberInput % 2 === 0) {
-          console.log(`${numberInput} la so chan`);
-          // block if -> chay khi condition === true
-        } else {
-          console.log(`${numberInput} la so le`);
-          // block else -> chay khi condition !== true
-        }
+        let elm = document.getElementById("result");
+        elm.innerHTML = res;
       }
 
-      // UNIT TEST
-      function isRank(numberInput) {
-        console.log(numberInput);
-        // gioi -> 8 -> 10
-        if (numberInput >=8 && numberInput <= 10) {
-            console.log('gioi');
-        }else if(numberInput >=5){
-            console.log('kha');
-        }else if(numberInput >=3){
-            console.log('tb');
-        }else{
-            console.log('yeu');
-        }
-        // kha  -> 5 -> 8
-        // if (numberInput >=5 && numberInput < 8) {
-        //     console.log('kha');
-        // }
-        // tb   -> 3 -> 5
-        if (numberInput >=3 && numberInput < 5) {
-            console.log('kha');
-        }
-        // yeu  -> 0 -> 3
-        if (numberInput >=0 && numberInput < 3) {
-            console.log('kha');
-        }
+      function getListUser() {
+        let url = "https://63284e93a2e90dab7bdd0fd7.mockapi.io/api/v1/users";
+        fetch(url, {
+          method: "GET",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            _renderListUser(data);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
       }
-
-      //   Input 1 so diem cua ban A.
-      //   Output: Loai hoc luc cua ban A
+      function postUser() {
+        let url = "https://63284e93a2e90dab7bdd0fd7.mockapi.io/api/v1/users";
+        let data = {
+          name: "new user",
+          avatar:
+            "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1129.jpg",
+        };
+        fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+      function updateUser() {
+        console.log("updateUser");
+        let url = "https://63284e93a2e90dab7bdd0fd7.mockapi.io/api/v1/users/11";
+        let data = {
+          name: "update user",
+          avatar:
+            "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1129.jpg",
+        };
+        fetch(url, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+      function deleteUser() {
+        let url = "https://63284e93a2e90dab7bdd0fd7.mockapi.io/api/v1/users/11";
+        fetch(url, {
+          method: "DELETE",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
     </script>
     <script src="./js/index.js"></script>
   </body>
