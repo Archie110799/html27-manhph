@@ -12,20 +12,29 @@
     <button onclick="getListUser()">Get List User</button>
     <button onclick="postUser()">Post User</button>
     <button onclick="updateUser()">Update User</button>
-    <button onclick="deleteUser()">Delete User</button>
+    <!-- <button onclick="deleteUser(12)">Delete User</button> -->
     <div id="result">
       <div class="table-responsive"></div>
     </div>
 
     <script>
-      // CRUD - R/C/U/D
-      // button -> click -> log listUser call API
+      // add td table
+      // td: add 2 btn -> detail + delete
+      // 2 btn -> handleEvent (event phai lay dc id cua user (them input params cho func(user.id)))
+      // xu ly 2 event : detail -> redirect sang detail.html?id=:id -> log(id) ra console
+      // btn delete : call API xoa user o mockAPI -> xoa thanh cong -> thuc hien call API getListUser
+
       function _renderListUser(listUser) {
         let contentBody = ``;
         listUser.map((user) => {
           contentBody += `<tr class="">
                       <td scope="row">${user.name}</td>
                       <td>${user.avatar}</td>
+                      <td>
+                        <a href="./detail.html?id=${user.id}">Go to Detail</a>
+                        <button onclick="handeDetail(${user.id})">Detail</button>  
+                        <button onclick="handeDelete(${user.id})">Delte</button>  
+                      </td>
                     </tr>`;
         });
         let res = `
@@ -34,6 +43,7 @@
               <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Avatar</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -45,7 +55,18 @@
         let elm = document.getElementById("result");
         elm.innerHTML = res;
       }
-
+      
+      function handeDetail(userId) {
+        console.log('Clicked detail', userId);
+        let newUrl = "./detail.html?id=" + userId
+        console.log(newUrl);
+        window.location.href = newUrl
+      }
+      
+      function handeDelete(userId) {
+        console.log('Clicked delete',userId);
+        deleteUserAPI(userId)
+      }
       function getListUser() {
         let url = "https://63284e93a2e90dab7bdd0fd7.mockapi.io/api/v1/users";
         fetch(url, {
@@ -104,14 +125,15 @@
             console.error("Error:", error);
           });
       }
-      function deleteUser() {
-        let url = "https://63284e93a2e90dab7bdd0fd7.mockapi.io/api/v1/users/11";
+      function deleteUserAPI(userId) {
+        let url = "https://63284e93a2e90dab7bdd0fd7.mockapi.io/api/v1/users/"+ userId;
         fetch(url, {
           method: "DELETE",
         })
           .then((response) => response.json())
           .then((data) => {
             console.log(data);
+            getListUser()
           })
           .catch((error) => {
             console.error("Error:", error);
