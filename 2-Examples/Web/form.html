@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Form</h1>
+    <form onsubmit="return false">
+      <!-- input save data by value : email, text, password, select -->
+      <input onchange="console.log('change')" onblur="console.log('blur')" id="inputText" type="text" />
+      <input id="inputEmail" type="email" />
+      <input id="inputPassword" type="password" />
+      <!-- input save data by checked : checkbox, radio button -->
+      <input id="inputCheckbox" name="test" type="checkbox" />
+      <input name="test" type="checkbox" />
+      <input name="test" type="checkbox" />
+
+      <input id="inputRadio" name="test" type="radio" />
+      <input name="test" type="radio" />
+      <input name="test" type="radio" />
+
+      <button onclick="handleClick()">Submit</button>
+    </form>
+    <script>
+      function handleClick() {
+        console.log(document.getElementById("inputText").value);
+        console.log(document.getElementById("inputEmail").value);
+        console.log(document.getElementById("inputPassword").value);
+
+        console.log(document.getElementById("inputCheckbox").checked);
+        console.log(document.getElementById("inputRadio").checked);
+      }
+    </script>
+  </body>
+</html>

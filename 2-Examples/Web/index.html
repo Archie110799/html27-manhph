@@ -21,7 +21,7 @@
       // add td table
       // td: add 2 btn -> detail + delete
       // 2 btn -> handleEvent (event phai lay dc id cua user (them input params cho func(user.id)))
-      // xu ly 2 event : detail -> redirect sang detail.html?id=:id -> log(id) ra console
+      // xu ly 2 event : detail -> redirect sang detail.html?id=:id -> render info user 
       // btn delete : call API xoa user o mockAPI -> xoa thanh cong -> thuc hien call API getListUser
 
       function _renderListUser(listUser) {
@@ -31,7 +31,6 @@
                       <td scope="row">${user.name}</td>
                       <td>${user.avatar}</td>
                       <td>
-                        <a href="./detail.html?id=${user.id}">Go to Detail</a>
                         <button onclick="handeDetail(${user.id})">Detail</button>  
                         <button onclick="handeDelete(${user.id})">Delte</button>  
                       </td>

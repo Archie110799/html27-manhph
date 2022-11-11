@@ -1,17 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Detail</h1>
+    <div id="info"></div>
     <script>
-        let url = new URL(window.location.href);
-        let id = url.searchParams.get("id");
-        console.log(id);
+      let url = new URL(window.location.href);
+      let id = url.searchParams.get("id");
+      getUser(id);
+      function getUser(userId) {
+        let url =
+          "https://63284e93a2e90dab7bdd0fd7.mockapi.io/api/v1/users/" + userId;
+        fetch(url, {
+          method: "GET",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            _renderInfo(data);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+
+      function _renderInfo(user) {
+        let res = `
+                <p>${user.name}</p>
+                <img src="${user.avatar}"/>
+            `;
+        document.getElementById("info").innerHTML = res;
+      }
     </script>
-</body>
+  </body>
 </html>
