@@ -8,31 +8,20 @@
   </head>
   <body>
     <h1>Form</h1>
-    <form onsubmit="return false">
-      <!-- input save data by value : email, text, password, select -->
-      <input onchange="console.log('change')" onblur="console.log('blur')" id="inputText" type="text" />
-      <input id="inputEmail" type="email" />
-      <input id="inputPassword" type="password" />
-      <!-- input save data by checked : checkbox, radio button -->
-      <input id="inputCheckbox" name="test" type="checkbox" />
-      <input name="test" type="checkbox" />
-      <input name="test" type="checkbox" />
+    <form id="myForm" onsubmit="return false">
+      <div>
+        <input type="text" name="email" />
+      </div>
+      <div>
+        <input type="password" name="password" />
+      </div>
+      
 
-      <input id="inputRadio" name="test" type="radio" />
-      <input name="test" type="radio" />
-      <input name="test" type="radio" />
-
-      <button onclick="handleClick()">Submit</button>
+      <button type="submit" >Submit</button>
     </form>
-    <script>
-      function handleClick() {
-        console.log(document.getElementById("inputText").value);
-        console.log(document.getElementById("inputEmail").value);
-        console.log(document.getElementById("inputPassword").value);
-
-        console.log(document.getElementById("inputCheckbox").checked);
-        console.log(document.getElementById("inputRadio").checked);
-      }
-    </script>
+    <script src="./jquery/jquery.min.js"></script>
+    <script src="./jquery/jquery.validate.min.js"></script>
+    <script src="./js/form.js"></script>
+    
   </body>
 </html>

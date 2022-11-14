@@ -8,15 +8,20 @@
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
+    <header></header>
     <h1>Hello world</h1>
     <button onclick="getListUser()">Get List User</button>
     <button onclick="postUser()">Post User</button>
     <button onclick="updateUser()">Update User</button>
+    <button onclick="runJs()">Run Js</button>
+    <button onclick="testJq()">Test Jq</button>
     <!-- <button onclick="deleteUser(12)">Delete User</button> -->
     <div id="result">
       <div class="table-responsive"></div>
     </div>
+    <div id="test"></div>
 
+    <script src="./jquery/jquery.min.js"></script>
     <script>
       // add td table
       // td: add 2 btn -> detail + delete
@@ -137,6 +142,24 @@
           .catch((error) => {
             console.error("Error:", error);
           });
+      }
+    </script>
+    <script>
+      function runJs() {
+        console.log('run js');
+        let elm = document.getElementById('test')
+        elm.innerHTML = 'abc'
+        elm.setAttribute('class','class_test')
+        elm.style.display = 'none'
+        elm.style.display = 'block'
+      }
+      function runJq() {
+        console.log('run jq');
+        let elm = $('#test')
+        // elm.html('abc');
+        // elm.attr('class','class_test')
+        // elm.hide()
+        // elm.show()
       }
     </script>
     <script src="./js/index.js"></script>
