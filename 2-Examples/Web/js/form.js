@@ -10,6 +10,9 @@ let settings = {
       minlength: 6,
       maxlength: 12,
     },
+    address:{
+
+    }
   },
   messages: {
     email: {
@@ -22,6 +25,9 @@ let settings = {
       minlength: "Toi thieu {0} ki tu",
       maxlength: "Toi da {0} ki tu",
     },
+    address:{
+        
+    }
   },
 };
 

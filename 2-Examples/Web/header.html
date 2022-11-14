@@ -9,9 +9,23 @@
   </head>
   <body>
     <div>
-      <span class="item__nav">Home</span>
-      <span class="item__nav">List</span>
-      <span class="item__nav">Form</span>
+      <a href="./index.html" class="item__nav">Home</a>
+      <a href="./detail.html" class="item__nav">List</a>
+      <a href="./form.html" class="item__nav">Form</a>
     </div>
+    <script>
+        const CURRENT_HREF = window.location.href
+        // So khop nhung href cua the a <> CURRENT_HREF
+        let listA = $('a')
+        // let listA = document.querySelectorAll('a')
+        for (let index = 0; index < listA.length; index++) {
+          const element = listA[index];
+          console.log(element.href);
+          if (element.href === CURRENT_HREF) {
+            $(element).addClass('active')
+            // element.classList.add('active')
+          }   
+        }
+    </script>
   </body>
 </html>
