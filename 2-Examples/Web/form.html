@@ -9,15 +9,15 @@
   <body>
     <header></header>
     <h1>Form</h1>
-    <form id="myForm" onsubmit="return false">
+    <form id="myForm" onsubmit="handleSubmit(); return false;">
       <div>
-        <input type="text" name="email" />
+        <input type="text" name="name" id="inputName" />
       </div>
       <div>
-        <input type="password" name="password" />
+        <input type="text" name="avatar" id="inputAvatar" />
       </div>
 
-      <button type="submit" >Submit</button>
+      <button>Submit</button>
     </form>
     <script src="./jquery/jquery.min.js"></script>
     <script src="./jquery/jquery.validate.min.js"></script>
