@@ -1,7 +1,18 @@
+jQuery.validator.addMethod(
+  "regex",
+  function (value, element, regexp) {
+      if (regexp.constructor != RegExp)
+          regexp = new RegExp(regexp);
+      else if (regexp.global)
+          regexp.lastIndex = 0;
+      return this.optional(element) || regexp.test(value);
+  }, "erreur expression reguliere"
+);
 let settings = {
   rules: {
     name: {
       required: true,
+      regex: /^[A-Za-z]+$/
     },
     avatar: {
       required: true,
@@ -10,6 +21,7 @@ let settings = {
   messages: {
     name: {
       required: "Bạn chưa nhập email",
+      regex : "Khong duoc nhap chu so"
     },
     avatar: {
       required: "Yeu cau nhap password",
