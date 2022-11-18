@@ -16,6 +16,17 @@
       <div>
         <input type="text" name="avatar" id="inputAvatar" />
       </div>
+      <div>
+        <select
+          name="province"
+          id="selectProvince"
+          onchange="handleChangeSelectJs()"
+        >
+          <option value="1">Ha Noi</option>
+          <option value="2">Ho Chi Minh</option>
+          <option value="3">Da Nang</option>
+        </select>
+      </div>
 
       <button>Submit</button>
     </form>
@@ -23,6 +34,20 @@
     <script src="./jquery/jquery.validate.min.js"></script>
     <script src="./js/index.js"></script>
     <script src="./js/form.js"></script>
-    
+    <script>
+      handleChangeSelectJq()
+      handleChangeSelectJs()
+      function handleChangeSelectJq() {
+        let value = $("#selectProvince").val();
+        let text = $("#selectProvince :selected").text();
+        console.log('JQ',value, text);
+      }
+      function handleChangeSelectJs() {
+        let e = document.getElementById("selectProvince");
+        let value = e.value;
+        let text = e.options[e.selectedIndex].text;
+        console.log('JS',value, text);
+      }
+    </script>
   </body>
 </html>
