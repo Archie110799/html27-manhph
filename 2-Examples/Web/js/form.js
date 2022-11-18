@@ -94,7 +94,6 @@ window.onload = function (e) {
   if (id) {
     getUser(id)
   }
-  
 };
 
 function getUser(userId) {
