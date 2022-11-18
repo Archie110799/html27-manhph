@@ -1,34 +1,108 @@
-jQuery.validator.addMethod(
-  "regex",
-  function (value, element, regexp) {
-    if (regexp.constructor != RegExp) regexp = new RegExp(regexp);
-    else if (regexp.global) regexp.lastIndex = 0;
-    return this.optional(element) || regexp.test(value);
+const ARRAY_PROVINCE = [
+  {
+    name: "Thành phố Hà Nội",
+    code: 1,
+    districts: [
+      {
+        name: "Quận Ba Đình",
+        code: 1,
+        wards: [
+          {
+            name: "Phường Phúc Xá",
+            code: 1,
+          },
+          {
+            name: "Phường Trúc Bạch",
+            code: 2,
+          },
+        ],
+      },
+      {
+        name: "Quận Tây Hồ",
+        code: 3,
+        wards: [
+          {
+            name: "Phường Phú Thượng",
+            code: 91,
+          },
+          {
+            name: "Phường Nhật Tân",
+            code: 94,
+          },
+        ],
+      },
+    ],
   },
-  "erreur expression reguliere"
-);
-let settings = {
-  rules: {
-    name: {
-      required: true,
-      regex: /^[a-zA-Z0-9_ ]*$/,
-    },
-    avatar: {
-      required: true,
-    },
+  {
+    name: "Thành phố Đà Nẵng",
+    code: 48,
+    districts: [
+      {
+        name: "Quận Liên Chiểu",
+        code: 490,
+        wards: [
+          {
+            name: "Phường Hòa Hiệp Bắc",
+            code: 20194,
+          },
+          {
+            name: "Phường Hòa Hiệp Nam",
+            code: 20195,
+          },
+        ],
+      },
+      {
+        name: "Quận Hải Châu",
+        code: 492,
+        wards: [
+          {
+            name: "Phường Thanh Bình",
+            code: 20227,
+          },
+          {
+            name: "Phường Thuận Phước",
+            code: 20230,
+          },
+        ],
+      },
+    ],
   },
-  messages: {
-    name: {
-      required: "Bạn chưa nhập email",
-      regex: "Khong duoc nhap chu so",
+];
+let PROVINCE_SELECT;
+validateJq();
+function validateJq() {
+  jQuery.validator.addMethod(
+    "regex",
+    function (value, element, regexp) {
+      if (regexp.constructor != RegExp) regexp = new RegExp(regexp);
+      else if (regexp.global) regexp.lastIndex = 0;
+      return this.optional(element) || regexp.test(value);
     },
-    avatar: {
-      required: "Yeu cau nhap password",
+    "erreur expression reguliere"
+  );
+  let settings = {
+    rules: {
+      name: {
+        required: true,
+        regex: /^[a-zA-Z0-9_ ]*$/,
+      },
+      avatar: {
+        required: true,
+      },
     },
-  },
-};
+    messages: {
+      name: {
+        required: "Bạn chưa nhập email",
+        regex: "Khong duoc nhap chu so",
+      },
+      avatar: {
+        required: "Yeu cau nhap password",
+      },
+    },
+  };
 
-let validator = $("#myForm").validate(settings);
+  let validator = $("#myForm").validate(settings);
+}
 
 function handleSubmit() {
   let isValid = $("#myForm").valid();
@@ -42,11 +116,10 @@ function handleSubmit() {
     let url = new URL(window.location.href);
     let id = url.searchParams.get("id");
     if (id) {
-      updateUser(id, data)
-    }else{
+      updateUser(id, data);
+    } else {
       postUser(data);
     }
-    
   } else {
     console.log("cancel submit");
   }
@@ -71,7 +144,8 @@ function postUser(data) {
 }
 
 function updateUser(userId, data) {
-  let url = "https://63284e93a2e90dab7bdd0fd7.mockapi.io/api/v1/users/"+ userId;
+  let url =
+    "https://63284e93a2e90dab7bdd0fd7.mockapi.io/api/v1/users/" + userId;
   fetch(url, {
     method: "PUT",
     headers: {
@@ -88,14 +162,6 @@ function updateUser(userId, data) {
     });
 }
 
-window.onload = function (e) {
-  let url = new URL(window.location.href);
-  let id = url.searchParams.get("id");
-  if (id) {
-    getUser(id)
-  }
-};
-
 function getUser(userId) {
   let url =
     "https://63284e93a2e90dab7bdd0fd7.mockapi.io/api/v1/users/" + userId;
@@ -104,7 +170,7 @@ function getUser(userId) {
   })
     .then((response) => response.json())
     .then((data) => {
-      autoFillUser(data)
+      autoFillUser(data);
     })
     .catch((error) => {
       console.error("Error:", error);
@@ -113,8 +179,71 @@ function getUser(userId) {
 
 function autoFillUser(user) {
   console.log(user);
-  let inputName = document.getElementById('inputName') // get elm
-  inputName.value = user.name
-  let inputAvatar = document.getElementById('inputAvatar')
-  inputAvatar.value = user.avatar
+  let inputName = document.getElementById("inputName"); // get elm
+  inputName.value = user.name;
+  let inputAvatar = document.getElementById("inputAvatar");
+  inputAvatar.value = user.avatar;
+}
+
+window.onload = function (e) {
+  let url = new URL(window.location.href);
+  let id = url.searchParams.get("id");
+  if (id) {
+    getUser(id);
+  }
+};
+_renderOptionCity();
+
+function handleChangeCity() {
+  let valueCity = $("#selectCity").val();
+  let textCity = $("#selectCity :selected").text();
+  console.log("JQ", valueCity, textCity);
+  _renderOptionDistrict(valueCity);
+}
+
+function handleChangeDistrict() {
+  let valueDistrict = $("#selectDistrict").val();
+  console.log(PROVINCE_SELECT);
+  _renderOptionWards(valueDistrict);
+}
+
+function _renderOptionCity() {
+  let city = ``;
+  ARRAY_PROVINCE.map(
+    (item) => (city += `<option value="${item.code}">${item.name}</option>`)
+  );
+  $("#selectCity").html(city);
+  let valueCity = $("#selectCity").val();
+  _renderOptionDistrict(valueCity);
+}
+function _renderOptionDistrict(idCity) {
+  // get City Selected
+  let citySelected = ARRAY_PROVINCE.find(
+    (item) => item.code === parseInt(idCity)
+  );
+  // save City Selected
+  PROVINCE_SELECT = citySelected;
+
+  // render District options
+  let district = ``;
+  citySelected?.districts?.map(
+    (item) =>
+      (district += `<option value="${item.code}">${item.name}</option>`)
+  );
+  $("#selectDistrict").html(district);
+
+  let valueDistrict = $("#selectDistrict").val();
+  
+  // render Wards options
+  _renderOptionWards(valueDistrict);
+}
+function _renderOptionWards(valueDistrict) {
+  let district = PROVINCE_SELECT.districts.find((item) => {
+    return item.code === parseInt(valueDistrict);
+  });
+  let wards = ``;
+  district?.wards?.map(
+    (item) => (wards += `<option value="${item.code}">${item.name}</option>`)
+  );
+  $("#selectWards").html(wards);
 }
