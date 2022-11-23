@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="./bootstrap-5.2.1-dist/css/bootstrap.min.css">
+</head>
+<body>
+    <header></header>
+    <form id="myForm" class="w-50 m-auto mt-3" onsubmit="return false;">
+        <div class="mb-3">
+            <label for="input__email" class="form-label">Email address</label>
+            <input type="text" name="email"  class="form-control" id="input__email" aria-describedby="emailHelp">
+            <div id="error__email" class="form-text text-danger"></div>
+        </div>
+        <div class="mb-3">
+            <label for="input__password" class="form-label">Password</label>
+            <input type="password" name="password" class="form-control" id="input__password"
+                onchange="console.log('onchange',this.value)">
+        </div>
+        <button onclick="handleLogin()" id="btn__submit" class="btn btn-success">Login</button>
+    </form>
+    <script src="./jquery/jquery.min.js"></script>
+    <script src="./bootstrap-5.2.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./bootstrap-5.2.1-dist/js/bootstrap.min.js"></script>
+    <script src="./js/home.js"></script>
+    <script>
+        function handleLogin() {
+            console.log('login');
+            let inputEmail = document.getElementById('input__email').value
+            let inputPwd = document.getElementById('input__password').value
+            console.log(inputEmail, inputPwd);
+            if (inputEmail === 'aptech' && inputPwd === 'aptech') {
+                window.location.href = './index.html?islogin=1'
+
+                localStorage.setItem("islogin", 1); 
+            }else{
+                alert('login that bai')
+            }
+        }
+    </script>
+</body>
+</html>
